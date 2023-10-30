@@ -86,8 +86,8 @@ public class Main {
         driver.get("https://www.alza.sk/mobily/18843445.htm");
         try {
 
-            WebElement selectBox = driver.findElement(By.id("cpcm_cpc_parametrization_rptHierarchicParameterGroups_hierarchicParameterGroup_0_rptParameters_0_ddlParameterValues_0"));
-            Select dropdown = new Select(selectBox);
+            //WebElement selectBox = driver.findElement(By.id("cpcm_cpc_parametrization_rptHierarchicParameterGroups_hierarchicParameterGroup_0_rptParameters_0_ddlParameterValues_0"));
+            //Select dropdown = new Select(selectBox);
             //dropdown.selectByIndex(5);
             //Thread.sleep(50000);
             //dropdown.selectByValue("239896778");
@@ -117,10 +117,15 @@ public class Main {
             Thread.sleep(5000);
             driver.switchTo().alert().accept();
             */
+            /*
             js.executeScript("alert('Ahoj ja som tu')");
             Thread.sleep(5000);
             System.out.println(driver.switchTo().alert().getText());
             driver.switchTo().alert().accept();
+             */
+            By elementLocator = By.id("categoryUpperDescription");
+            js.executeScript("arguments[0].style.color = 'red'", driver.findElement(elementLocator));
+            Thread.sleep(5000);
 
         } catch (InterruptedException e) {
             e.printStackTrace();
