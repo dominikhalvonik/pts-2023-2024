@@ -8,6 +8,15 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.JavascriptExecutor;
 
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
@@ -15,7 +24,7 @@ public class Main {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\Admin\\IdeaProjects\\pts-2023-2024\\chromedriver-win64\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
 
-        /*
+
         driver.get("https://google.com");
 
         try {
@@ -25,11 +34,35 @@ public class Main {
             WebElement searchBox = driver.findElement(By.name("q"));
             searchBox.sendKeys("UKF je najlepsia");
             searchBox.submit();
+            File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
+            // Uloženie súboru
+            FileUtils.copyFile(screenshot, new File("screenshot.png"));
+            // Otvoríme nový tab pomocou JavaScriptu
+            ((JavascriptExecutor)driver).executeScript("window.open()");
+
+            // Získame handle na všetky otvorené okná/taby
+            List<String> tabs = new ArrayList<>(driver.getWindowHandles());
+
+            // Prepneme sa na nový tab, ktorý bude druhý v zozname
+            driver.switchTo().window(tabs.get(1));
+
+            // Otvoríme URL v novom tabe
+            driver.get("https://ais2.ukf.sk");
+            Thread.sleep(5000);
+
+            // Ak chcete zatvoriť aktuálny tab
+            driver.close();
+
+            // Prepnite sa späť na pôvodný tab, ak je to potrebné
+            driver.switchTo().window(tabs.get(0));
             Thread.sleep(5000);  // Pozastaviť vykonávanie na 5 sekúnd
-        } catch (InterruptedException e) {
+        }  catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }
-         */
+
+        driver.quit();
+
 
         /*
         driver.get("https://ais2.ukf.sk/ais/start.do");
@@ -83,7 +116,7 @@ public class Main {
         //Vyhľadávanie na základe XPath
         //WebElement usernameXpath = driver.findElement(By.xpath("/html/body/div[2]/div[3]/div[3]/span/div/div/div/div[3]/div[1]/button[2]/div"));
 
-        driver.get("https://www.alza.sk/mobily/18843445.htm");
+        /*driver.get("https://www.alza.sk/mobily/18843445.htm");
         try {
 
             //WebElement selectBox = driver.findElement(By.id("cpcm_cpc_parametrization_rptHierarchicParameterGroups_hierarchicParameterGroup_0_rptParameters_0_ddlParameterValues_0"));
@@ -103,11 +136,11 @@ public class Main {
             act.dragAndDrop(image,input).build().perform();
 
             Thread.sleep(1000);
-            */
+
 
             JavascriptExecutor js = (JavascriptExecutor)driver;
 
-            /*
+
             js.executeScript("confirm('Potvrd ale vyvrat')");
             Thread.sleep(1000);
             driver.switchTo().alert().dismiss();
@@ -122,15 +155,17 @@ public class Main {
             Thread.sleep(5000);
             System.out.println(driver.switchTo().alert().getText());
             driver.switchTo().alert().accept();
-             */
+
             By elementLocator = By.id("categoryUpperDescription");
             js.executeScript("arguments[0].style.color = 'red'", driver.findElement(elementLocator));
             Thread.sleep(5000);
+
 
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
         driver.quit();
+        */
     }
 }
